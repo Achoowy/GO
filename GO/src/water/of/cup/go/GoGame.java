@@ -89,10 +89,10 @@ public class GoGame extends Game {
 					buttons.add(positionButtons[y][x]);
 				}
 			break;
-		case 9:
+		case 7:
 			for (int x = 0; x < boardType; x++)
 				for (int y = 0; y < boardType; y++) {
-					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_9", new int[] { 5 + x * 18, 5 + y * 18 }, y,
+					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_7", new int[] { 5 + x * 18, 5 + y * 18 }, y,
 							"chip");
 					positionButtons[y][x].setClickable(true);
 					buttons.add(positionButtons[y][x]);

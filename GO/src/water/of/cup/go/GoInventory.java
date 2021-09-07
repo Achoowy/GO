@@ -25,8 +25,8 @@ public class GoInventory extends GameInventory {
     @Override
     protected ArrayList<GameOption> getOptions() {
         ArrayList<GameOption> options = new ArrayList<>();
-        List<String> boardSize = Arrays.asList("9", "13", "19");
-		GameOption size = new GameOption("size", Material.EXPERIENCE_BOTTLE, GameOptionType.COUNT, null, boardSize.get(0), boardSize);
+        List<String> boardSize = Arrays.asList("7", "13", "19");
+		GameOption size = new GameOption("size", Material.EXPERIENCE_BOTTLE, GameOptionType.COUNT, null, boardSize.get(1), boardSize);
 		options.add(size);
         return options;
     }
