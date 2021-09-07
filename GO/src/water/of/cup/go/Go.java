@@ -23,7 +23,10 @@ public class Go extends BoardGamesExtension {
 
 	@Override
 	public ArrayList<BoardGamesConfigOption> getExtensionConfig() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<BoardGamesConfigOption> configOptions = new ArrayList<>();
+		for(ConfigUtil configUtil : ConfigUtil.values()) {
+			configOptions.add(new BoardGamesConfigOption(configUtil.getPath(), configUtil.getDefaultValue()));
+		}
+		return configOptions;
 	}
 }

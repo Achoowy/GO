@@ -24,7 +24,7 @@ public class GoGame extends Game {
 //	private double capturedBlack;
 //	private double capturedWhite;
 	private ArrayList<String> previousPositions;
-	private double komi = 5.5;
+	private double komi = 0.5;
 
 	private int consecutiveSkips;
 
@@ -80,20 +80,20 @@ public class GoGame extends Game {
 					buttons.add(positionButtons[y][x]);
 				}
 			break;
-		case 13: 
+		case 13:
 			for (int x = 0; x < boardType; x++)
 				for (int y = 0; y < boardType; y++) {
 					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_13",
-							new int[] { 5 + x * 9 + x / 6 - x / 12, 5 + y * 9 + y / 6 - y / 12}, y, "chip");
+							new int[] { 5 + x * 9 + x / 6 - x / 12, 5 + y * 9 + y / 6 - y / 12 }, y, "chip");
 					positionButtons[y][x].setClickable(true);
 					buttons.add(positionButtons[y][x]);
 				}
 			break;
-		case 9: 
+		case 9:
 			for (int x = 0; x < boardType; x++)
 				for (int y = 0; y < boardType; y++) {
-					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_9",
-							new int[] { 5 + x * 18, 5 + y * 18}, y, "chip");
+					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_9", new int[] { 5 + x * 18, 5 + y * 18 }, y,
+							"chip");
 					positionButtons[y][x].setClickable(true);
 					buttons.add(positionButtons[y][x]);
 				}
@@ -175,7 +175,9 @@ public class GoGame extends Game {
 				return;
 			}
 			teamManager.nextTurn();
-			teamManager.getTurnPlayer().getPlayer().sendMessage(gamePlayer.getPlayer().getName() + " passed");
+			for (GamePlayer gp : teamManager.getGamePlayers())
+				gp.getPlayer()
+						.sendMessage(ConfigUtil.CHAT_GO_PLAYERPASSED.buildString(gamePlayer.getPlayer().getName()));
 		}
 	}
 
@@ -196,7 +198,7 @@ public class GoGame extends Game {
 				newPositions[pos[1]][pos[0]] = null;
 		} else if (getCapturedChips(turn, position).size() > 0) {
 			// unnecessary sacrifice made
-			teamManager.getTurnPlayer().getPlayer().sendMessage("You can not make an unnecessary sacrifice.");
+			teamManager.getTurnPlayer().getPlayer().sendMessage(ConfigUtil.CHAT_GO_SACRIFICE.toRawString());
 			return;
 		}
 
@@ -210,7 +212,7 @@ public class GoGame extends Game {
 					positionString += s;
 		// check if position has already been visited
 		if (previousPositions.contains(positionString)) {
-			teamManager.getTurnPlayer().getPlayer().sendMessage("You can not return the board to a previous position.");
+			teamManager.getTurnPlayer().getPlayer().sendMessage(ConfigUtil.CHAT_GO_PREVIOUSPOSITION.toRawString());
 			return;
 		}
 		previousPositions.add(positionString);
@@ -367,8 +369,8 @@ public class GoGame extends Game {
 		whitePoints += komi;
 		updatePositionButtons();
 		for (GamePlayer gp : teamManager.getGamePlayers()) {
-			gp.getPlayer().sendMessage("White: " + whitePoints);
-			gp.getPlayer().sendMessage("Black: " + blackPoints);
+			gp.getPlayer().sendMessage(ConfigUtil.CHAT_GO_BLACKSCORE.buildString(whitePoints + ""));
+			gp.getPlayer().sendMessage(ConfigUtil.CHAT_GO_BLACKSCORE.buildString(blackPoints + ""));
 		}
 		this.endGame(teamManager.getGamePlayerByTeam(whitePoints > blackPoints ? "WHITE" : "BLACK"));
 	}
