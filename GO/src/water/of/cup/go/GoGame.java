@@ -37,7 +37,7 @@ public class GoGame extends Game {
 	@Override
 	protected void startGame() {
 		this.setInGame();
-		boardType = 19;
+		boardType = (int) getGameData("size");
 		createBoard();
 //		capturedBlack = 0;
 //		capturedWhite = 0;
@@ -65,7 +65,7 @@ public class GoGame extends Game {
 				for (Button b : line)
 					buttons.remove(b);
 		setPositionButtons();
-
+		mapManager.renderBoard();
 	}
 
 	private void setPositionButtons() {
@@ -92,8 +92,8 @@ public class GoGame extends Game {
 		case 9: 
 			for (int x = 0; x < boardType; x++)
 				for (int y = 0; y < boardType; y++) {
-					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_13",
-							new int[] { 5 + x * 9 + x / 6 - x / 12, 5 + y * 9 + y / 6 - y / 12}, y, "chip");
+					positionButtons[y][x] = new Button(this, "GO_CHIP_NONE_9",
+							new int[] { 5 + x * 18, 5 + y * 18}, y, "chip");
 					positionButtons[y][x].setClickable(true);
 					buttons.add(positionButtons[y][x]);
 				}
@@ -262,7 +262,7 @@ public class GoGame extends Game {
 		for (int[] startPos : checkPositions) {
 			if (!positionOnBoard(startPos))
 				continue;
-			if (!startPos.equals(turn))
+			if (!turn.equals(newPositions[startPos[1]][startPos[0]]))
 				continue;
 
 			ArrayList<int[]> capturedQueue = new ArrayList<int[]>();

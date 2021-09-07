@@ -1,12 +1,17 @@
 package water.of.cup.go;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
+import org.bukkit.Material;
 
 import water.of.cup.boardgames.config.ConfigUtil;
 import water.of.cup.boardgames.game.GamePlayer;
 import water.of.cup.boardgames.game.inventories.GameInventory;
 import water.of.cup.boardgames.game.inventories.GameOption;
+import water.of.cup.boardgames.game.inventories.GameOptionType;
 
 public class GoInventory extends GameInventory {
 
@@ -20,7 +25,9 @@ public class GoInventory extends GameInventory {
     @Override
     protected ArrayList<GameOption> getOptions() {
         ArrayList<GameOption> options = new ArrayList<>();
-
+        List<String> boardSize = Arrays.asList("9", "13", "19");
+		GameOption size = new GameOption("size", Material.EXPERIENCE_BOTTLE, GameOptionType.COUNT, null, boardSize.get(0), boardSize);
+		options.add(size);
         return options;
     }
 
