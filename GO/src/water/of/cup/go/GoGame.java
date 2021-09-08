@@ -369,7 +369,7 @@ public class GoGame extends Game {
 		whitePoints += komi;
 		updatePositionButtons();
 		for (GamePlayer gp : teamManager.getGamePlayers()) {
-			gp.getPlayer().sendMessage(ConfigUtil.CHAT_GO_BLACKSCORE.buildString(whitePoints + ""));
+			gp.getPlayer().sendMessage(ConfigUtil.CHAT_GO_WHITESCORE.buildString(whitePoints + ""));
 			gp.getPlayer().sendMessage(ConfigUtil.CHAT_GO_BLACKSCORE.buildString(blackPoints + ""));
 		}
 		this.endGame(teamManager.getGamePlayerByTeam(whitePoints > blackPoints ? "WHITE" : "BLACK"));
